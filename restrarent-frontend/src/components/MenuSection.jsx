@@ -143,8 +143,7 @@ export default function MenuSection() {
                   const isVeg = foodType === "Veg";
                   return (
                     <div
-                      className={`absolute bottom-3 right-3 flex items-center gap-1.5 rounded-md bg-white/95 px-2.5 py-1.5 shadow-md backdrop-blur-sm ${
-                        isVeg ? "text-green-700" : "text-red-700"
+className={`absolute bottom-3 right-3 flex items-center gap-1.5 rounded-md bg-black/60 px-2.5 py-1.5 shadow-none backdrop-blur-none ${                        isVeg ? "text-green-700" : "text-red-700"
                       }`}
                     >
                       {/* Food type indicator */}
@@ -159,7 +158,7 @@ export default function MenuSection() {
                           }`}
                         />
                       </span>
-                      <span className="text-xs font-bold">{foodType}</span>
+                      {/* <span className="text-xs font-bold">{foodType}</span> */}
                     </div>
                   );
                 })()}
