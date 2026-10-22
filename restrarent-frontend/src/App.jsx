@@ -6,13 +6,22 @@ import {
   Route,
   Outlet,
   Link,
+  useNavigate,
+  useLocation,
 } from "react-router-dom";
+
 
 // Customer website components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CartToast from "./components/CartToast";
 import CreateTable from "./admin/CreateTable";
+
+
+import { AuthProvider, useAuth } from "./context/AuthContext";import ProtectedRoute from "./components/ProtectedRoute";
+import CustomerAuth from "./pages/CustomerAuth";
+import AdminLogin from "./admin/AdminLogin";
+import AdminRegister from "./admin/AdminRegister";
 
 // Customer website pages
 import Home from "./pages/Home";
@@ -49,6 +58,8 @@ function Layout() {
   });
 
   const [toastMessage, setToastMessage] = useState("");
+const { isCustomerAuthenticated } = useAuth();  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     try {
@@ -62,28 +73,38 @@ function Layout() {
   }, [cartItems]);
 
   const addToCart = (dish) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (item) => item.id === dish.id
+  if (!isCustomerAuthenticated) {
+  navigate("/login", {
+    state: {
+      from: location.pathname,
+      dish,
+    },
+  });
+  return;
+}
+
+  setCartItems((prevItems) => {
+    const existingItem = prevItems.find(
+      (item) => item.id === dish.id
+    );
+
+    if (existingItem) {
+      return prevItems.map((item) =>
+        item.id === dish.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
+    }
 
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === dish.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
+    return [...prevItems, { ...dish, quantity: 1 }];
+  });
 
-      return [...prevItems, { ...dish, quantity: 1 }];
-    });
+  setToastMessage(`${dish.name} added to cart!`);
 
-    setToastMessage(`${dish.name} added to cart!`);
-
-    setTimeout(() => {
-      setToastMessage("");
-    }, 2500);
-  };
+  setTimeout(() => {
+    setToastMessage("");
+  }, 2500);
+};
 
   const increaseQuantity = (dishId) => {
     setCartItems((prevItems) =>
@@ -185,36 +206,57 @@ function NotFound() {
 // Root application
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Customer website routes */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Customer website routes */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<CustomerAuth/>}/>
+          </Route>
 
-   {/* Admin dashboard routes - separate layout */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="bills" element={<AdminBills />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="billing" element={<AdminBilling />} />
-          <Route path="menu" element={<AdminMenu />} />
-          <Route path="menu/create" element={<CreateFood />} />
-          <Route path="profile" element={<AdminProfileView />} />
-<Route path="profile/edit" element={<AdminProfileEdit />} />
-          <Route path="menu/:id/edit" element={<EditMenuItem />} />
-          <Route path="customers" element={<AdminCustomers />} />
-          <Route path="tables" element={<AdminTables />} />
-          <Route path="tables/create" element={<CreateTable />} />
-        </Route>
+          {/* Public admin authentication routes */}
+          <Route
+            path="/admin/login"
+            element={<AdminLogin />}
+          />
+          <Route
+            path="/admin/register"
+            element={<AdminRegister />}
+          />
 
-        {/* 404 fallback */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Protected admin routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="bills" element={<AdminBills />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="billing" element={<AdminBilling />} />
+              <Route path="menu" element={<AdminMenu />} />
+              <Route path="menu/create" element={<CreateFood />} />
+              <Route path="profile" element={<AdminProfileView />} />
+              <Route
+                path="profile/edit"
+                element={<AdminProfileEdit />}
+              />
+              <Route
+                path="menu/:id/edit"
+                element={<EditMenuItem />}
+              />
+              <Route path="customers" element={<AdminCustomers />} />
+              <Route path="tables" element={<AdminTables />} />
+              <Route path="tables/create" element={<CreateTable />} />
+            </Route>
+          </Route>
+
+          {/* 404 fallback */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

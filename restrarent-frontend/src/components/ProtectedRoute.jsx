@@ -1,16 +1,20 @@
+// src/components/ProtectedRoute.jsx
 
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function ProtectedRoute() {
-let user = null;
-  try {
-    user = JSON.parse(localStorage.getItem("user"));
-  } catch (error) {
-    console.error("Invalid user data:", error);
-  }
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
 
-  if (!user || user.role !== "admin") {
-    return <Navigate to="/" replace />;
+  if (!isAuthenticated) {
+    return (
+      <Navigate
+        to="/admin/login"
+        replace
+        state={{ from: location }}
+      />
+    );
   }
 
   return <Outlet />;

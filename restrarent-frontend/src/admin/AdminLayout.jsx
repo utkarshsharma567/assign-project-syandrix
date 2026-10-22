@@ -19,6 +19,7 @@ import {
   ReceiptText,
 } from "lucide-react";
 
+import { useAuth } from "../context/AuthContext";
 
 import { initialAdminData } from "../data/adminMockData";
 import AdminProfile from "./AdminProfile";
@@ -40,6 +41,14 @@ export default function AdminLayout() {
 
     
 
+
+    const { user, logout } = useAuth();
+
+
+const handleLogout = () => {
+  logout();
+  navigate("/admin/login", { replace: true });
+};
 
     const addTable = (newTable) => {
   const table = {
@@ -149,10 +158,7 @@ const [data, setData] = useState(() => {
 
  
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/", { replace: true });
-  };
+  
 
   return (
     <div className="min-h-screen bg-white md:flex">

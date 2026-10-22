@@ -1,24 +1,22 @@
-import { useState } from "react";
-import { ChefHat, Menu as MenuIcon, X, ShoppingBag } from "lucide-react";
-import { NavLink } from "react-router-dom";
 
-/**
- * Navbar Component
- * 
- * Features:
- * - Brand logo linking to Home
- * - Desktop navigation links (Home, Menu, About, Contact)
- * - Clickable Cart badge leading to /cart with item count
- * - Responsive mobile hamburger menu
- * 
- * Props:
- * - cartCount: Current total number of items in the cart
- */
+import { useState } from "react";
+import {
+  ChefHat,
+  Menu as MenuIcon,
+  X,
+  ShoppingBag,
+  LogOut,
+  LogIn,
+} from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 export default function Navbar({ cartCount = 0 }) {
-  // Mobile drawer toggle state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // All navigation routes
+  const { customer, isCustomerAuthenticated, logoutCustomer } = useAuth();
+  const navigate = useNavigate();
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Menu", path: "/menu" },
@@ -28,10 +26,15 @@ export default function Navbar({ cartCount = 0 }) {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
+  const handleLogout = () => {
+    logoutCustomer();
+    closeMobileMenu();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-[#17191d] text-white shadow-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-10">
-        {/* Brand Logo */}
         <NavLink
           to="/"
           onClick={closeMobileMenu}
@@ -43,7 +46,7 @@ export default function Navbar({ cartCount = 0 }) {
           </span>
         </NavLink>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop navigation */}
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <NavLink
@@ -61,30 +64,50 @@ export default function Navbar({ cartCount = 0 }) {
           ))}
         </div>
 
-        {/* Right Action Icons: Cart & Mobile Menu Toggle */}
-        <div className="flex items-center gap-3">
-
-          {/* Clickable Cart Button */}
+        {/* Cart, Login/Logout and mobile toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <NavLink
             to="/cart"
             onClick={closeMobileMenu}
             aria-label={`View cart with ${cartCount} items`}
             className={({ isActive }) =>
-              `flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              `flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold transition ${
                 isActive
                   ? "border-brand-orange bg-brand-orange text-white"
                   : "border-white/20 bg-white/5 text-white hover:border-brand-orange hover:text-brand-orange"
               }`
             }
           >
-            <ShoppingBag size={18} className="shrink-0" />
+            <ShoppingBag size={18} />
             <span className="hidden sm:inline">Cart</span>
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-orange px-1.5 text-xs font-bold text-white">
               {cartCount}
             </span>
           </NavLink>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Desktop Login / Logout */}
+          <div className="hidden md:block">
+            {isCustomerAuthenticated ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex items-center gap-2 rounded-full border border-red-400/40 px-4 py-2 text-sm font-semibold text-red-300 transition hover:bg-red-500 hover:text-white"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
+            ) : (
+              <NavLink
+                to="/login"
+                className="flex items-center gap-2 rounded-full bg-brand-orange px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+              >
+                <LogIn size={16} />
+                Login
+              </NavLink>
+            )}
+          </div>
+
+          {/* Mobile menu toggle */}
           <button
             type="button"
             aria-label="Toggle navigation menu"
@@ -97,7 +120,7 @@ export default function Navbar({ cartCount = 0 }) {
         </div>
       </nav>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile dropdown */}
       {mobileMenuOpen && (
         <div className="border-t border-white/10 bg-[#17191d] px-5 py-4 md:hidden">
           <div className="space-y-1">
@@ -118,6 +141,26 @@ export default function Navbar({ cartCount = 0 }) {
                 {link.name}
               </NavLink>
             ))}
+
+            {isCustomerAuthenticated ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-left font-semibold text-red-300 transition hover:bg-red-500/10"
+              >
+                <LogOut size={18} />
+                Logout
+              </button>
+            ) : (
+              <NavLink
+                to="/login"
+                onClick={closeMobileMenu}
+                className="flex items-center gap-2 rounded-xl px-4 py-3 font-semibold text-brand-orange hover:bg-white/5"
+              >
+                <LogIn size={18} />
+                Login
+              </NavLink>
+            )}
           </div>
         </div>
       )}
