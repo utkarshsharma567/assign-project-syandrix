@@ -19,8 +19,18 @@ const categories = [
 
 const foodFilters = ["All", "Veg", "Non-Veg", ...categories];
 
-const isVegDish = (dish) =>
-  dish.isVegetarian !== false && dish.foodType !== "Non-Veg";
+const typeCategories = ["Pizza", "Burger", "Pasta"];
+
+const supportsFoodType = (dish) =>
+  typeCategories.includes(dish.category);
+
+const isVegDish = (dish) => {
+  const type =
+    dish.foodType ??
+    (dish.isVegetarian === false ? "Non-Veg" : "Veg");
+
+  return type === "Veg";
+};
 
 export default function AdminMenu() {
   const { data, updateMenuItem, deleteMenuItem } = useOutletContext();
@@ -29,6 +39,7 @@ export default function AdminMenu() {
   const [viewDish, setViewDish] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
 
+  // Delete a food item
   const handleDelete = (dish) => {
     if (!window.confirm(`Are you sure you want to delete ${dish.name}?`)) {
       return;
@@ -41,6 +52,7 @@ export default function AdminMenu() {
     }
   };
 
+  // Toggle food availability
   const toggleAvailability = (dish) => {
     const available = !(dish.available ?? true);
 
@@ -51,16 +63,23 @@ export default function AdminMenu() {
     }
   };
 
-  const filteredMenu = (data?.menu ?? []).filter((dish) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "Veg") return isVegDish(dish);
-    if (activeFilter === "Non-Veg") return !isVegDish(dish);
+  // Filter food items
+ const filteredMenu = (data?.menu ?? []).filter((dish) => {
+  if (activeFilter === "All") return true;
 
-    return (
-      dish.name?.toLowerCase().includes(activeFilter.toLowerCase()) ||
-      dish.category?.toLowerCase() === activeFilter.toLowerCase()
-    );
-  });
+  if (activeFilter === "Veg") {
+    return isVegDish(dish);
+  }
+
+  if (activeFilter === "Non-Veg") {
+    return !isVegDish(dish);
+  }
+
+  return (
+    dish.name?.toLowerCase().includes(activeFilter.toLowerCase()) ||
+    dish.category?.toLowerCase() === activeFilter.toLowerCase()
+  );
+});
 
   return (
     <div className="space-y-6">
@@ -94,8 +113,8 @@ export default function AdminMenu() {
       {/* Food table */}
       <MenuTable
         dishes={filteredMenu}
-        onView={setViewDish}
         onEdit={(dish) => navigate(`/admin/menu/${dish.id}/edit`)}
+        onView={setViewDish}
         onDelete={handleDelete}
         onToggleAvailability={toggleAvailability}
       />

@@ -50,8 +50,9 @@ export const initialAdminData = {
 menu: [
   {
     id: 1,
-    name: "Margherita Pizza",
+    name: "Margherita Pizza-1",
     category: "Pizza",
+    foodType: "Veg",
     price: 249,
     available: true,
     image: "https://uk.ooni.com/cdn/shop/articles/20220211142645-margherita-9920_e3a9cdac-3ff9-48e0-86f2-821e1f6c4f36.jpg?v=1790674632",
@@ -73,6 +74,7 @@ menu: [
     id: 2,
     name: "Classic Burger",
     category: "Burger",
+    foodType: "Veg",
     price: 179,
     available: true,
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzpm6sli8Up_teEZ7g0PG9fs7PX6t70bKxBIO3SCaU1A&s=10",
@@ -96,6 +98,7 @@ menu: [
     id: 3,
     name: "Creamy Pasta",
     category: "Pasta",
+    foodType: "Veg",
     price: 199,
     available: true,
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXCwBqqN1sBin2ezcMi9mjsfaK2jOu08uc9meRfFy50aUJs6_T5ePrY3Y&s=10",
@@ -118,6 +121,7 @@ menu: [
     id: 4,
     name: "French Fries",
     category: "Sides",
+    foodType: "Veg",
     price: 99,
     available: false,
     image: "https://detoxinista.com/wp-content/uploads/2021/03/best-homemade-fries.jpg",
@@ -133,6 +137,107 @@ menu: [
     isVegetarian: true,
     spiceLevel: "Mild",
   },
+  
+
+{
+  id: 6,
+  name: "Chicken Biryani",
+  category: "Biryani",
+  foodType: "Non-Veg",
+  price: 299,
+  available: true,
+  image:
+    "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/12/chicken-biryani-recipe.jpg",
+  description:
+    "Aromatic basmati rice layered with spiced chicken, fresh herbs, and traditional biryani masala.",
+  ingredients: [
+    "Chicken",
+    "Basmati rice",
+    "Onions",
+    "Yogurt",
+    "Biryani masala",
+    "Mint",
+    "Coriander",
+  ],
+  preparationTime: "30-40 minutes",
+  servingSize: "1 plate",
+  isVegetarian: false,
+  spiceLevel: "Hot",
+},
+{
+  id: 7,
+  name: "Chocolate Brownie",
+  category: "Dessert",
+  foodType: "Veg",
+  price: 129,
+  available: true,
+  image:
+    "https://www.loveandlemons.com/wp-content/uploads/2024/01/brownies.jpg",
+  description:
+    "Rich and fudgy chocolate brownie with a soft center and a delicious chocolate flavor.",
+  ingredients: [
+    "Chocolate",
+    "Flour",
+    "Sugar",
+    "Butter",
+    "Cocoa powder",
+    "Milk",
+  ],
+  preparationTime: "10-15 minutes",
+  servingSize: "1 piece",
+  isVegetarian: true,
+  spiceLevel: "Mild",
+},
+{
+  id: 8,
+  name: "Grilled Chicken Burger",
+  category: "Burger",
+  foodType: "Non-Veg",
+  price: 249,
+  available: true,
+  image:
+    "https://www.recipetineats.com/tachyon/2019/07/Grilled-Chicken-Burgers_5.jpg",
+  description:
+    "Juicy grilled chicken served in a toasted bun with crisp lettuce, fresh tomatoes, and creamy burger sauce.",
+  ingredients: [
+    "Burger bun",
+    "Chicken breast",
+    "Lettuce",
+    "Tomato",
+    "Cheese",
+    "Burger sauce",
+  ],
+  preparationTime: "15-20 minutes",
+  servingSize: "1 burger",
+  isVegetarian: false,
+  spiceLevel: "Medium",
+},
+{
+  id: 9,
+  name: "Masala Dosa",
+  category: "Sides",
+  foodType: "Veg",
+  price: 149,
+  available: true,
+  image:
+    "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/06/masala-dosa.jpg",
+  description:
+    "Crispy golden dosa filled with seasoned potato masala, served with coconut chutney and sambar.",
+  ingredients: [
+    "Dosa batter",
+    "Potatoes",
+    "Onions",
+    "Mustard seeds",
+    "Curry leaves",
+    "Coconut chutney",
+    "Sambar",
+  ],
+  preparationTime: "15-20 minutes",
+  servingSize: "1 dosa",
+  isVegetarian: true,
+  spiceLevel: "Medium",
+},
+
 ],
 
 

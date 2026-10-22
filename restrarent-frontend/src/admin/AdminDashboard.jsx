@@ -35,23 +35,7 @@ export default function AdminDashboard() {
     setBills(paidBills);
   }, []);
 
-  const handleDeleteBill = (billId, e) => {
-    e?.stopPropagation?.();
-    if (
-      window.confirm(
-        `Are you sure you want to remove bill "${billId}"? It will be deleted permanently from both the UI and localStorage.`
-      )
-    ) {
-      deleteCustomerBill(billId);
-      setBills((prev) => prev.filter((b) => (b.id || b.billNumber) !== billId));
-      if (
-        selectedBill &&
-        (selectedBill.id === billId || selectedBill.billNumber === billId)
-      ) {
-        setSelectedBill(null);
-      }
-    }
-  };
+  
 
   const totalOrders = data.orders.length;
 
@@ -141,108 +125,7 @@ export default function AdminDashboard() {
           3. "View Details" opens breakdown modal
           4. Code Splitting & Lazy Loading (React.lazy & Suspense)
       ====================================================== */}
-      <section className="rounded-2xl bg-white p-5 shadow-sm">
-        <div className="mb-5 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
-              <ReceiptText size={18} />
-            </span>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">Bills</h3>
-              <p className="text-xs text-slate-500">
-                Successful invoices paid by customers from their cart
-              </p>
-            </div>
-          </div>
-
-          <Link
-            to="/admin/bills"
-            className="flex items-center gap-1 text-sm font-semibold text-orange-600 hover:text-orange-700"
-          >
-            View all ({bills.length}) <ArrowRight size={16} />
-          </Link>
-        </div>
-
-        {bills.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[550px] text-left text-sm">
-              <thead className="border-b text-slate-500">
-                <tr>
-                  <th className="py-3 px-3">Bill ID</th>
-                  <th className="py-3 px-3">Date</th>
-                  <th className="py-3 px-3">Amount</th>
-                  <th className="py-3 px-3">Status</th>
-                  <th className="py-3 px-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {bills.slice(0, 5).map((bill) => {
-                  const billId = bill.id || bill.billNumber;
-                  const total = Number(bill.grandTotal || bill.total || 0);
-
-                  return (
-                    <tr
-                      key={billId}
-                      className="transition-colors hover:bg-slate-50/70"
-                    >
-                      {/* 1. Bill ID */}
-                      <td className="py-4 px-3 font-mono font-bold text-slate-900">
-                        {billId}
-                      </td>
-
-                      {/* 2. Date */}
-                      <td className="py-4 px-3 text-slate-600">
-                        {bill.date || "N/A"}
-                      </td>
-
-                      {/* 3. Amount */}
-                      <td className="py-4 px-3 font-bold text-slate-900">
-                        {formatCurrency(total)}
-                      </td>
-
-                      {/* 4. Status */}
-                      <td className="py-4 px-3">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                          <CheckCircle2 size={12} className="text-emerald-600" />
-                          {bill.status || "Paid"}
-                        </span>
-                      </td>
-
-                      {/* 5. Actions Buttons */}
-                      <td className="py-4 px-3 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setSelectedBill(bill)}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-orange-50 px-3.5 py-1.5 text-xs font-bold text-orange-600 transition hover:bg-orange-500 hover:text-white active:scale-95 shadow-sm"
-                          >
-                            <Eye size={13} />
-                            <span>View Details</span>
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={(e) => handleDeleteBill(billId, e)}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-red-50 px-3.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-500 hover:text-white active:scale-95 shadow-sm"
-                            title="Delete bill from UI and localStorage"
-                          >
-                            <Trash2 size={13} />
-                            <span>Delete</span>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="py-10 text-center text-sm text-slate-500">
-            No bills paid from cart yet.
-          </div>
-        )}
-      </section>
+      
 
       {/* Orders and Popular Items Grid */}
       <div className="grid gap-6 xl:grid-cols-3">

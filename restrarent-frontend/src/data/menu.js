@@ -1,76 +1,167 @@
 
-
 export const dishes = [
   {
     id: 1,
-    name: 'Margherita Pizza',
-    category: 'Pizza',
-    description: 'Classic stone-baked pizza with San Marzano tomatoes, fresh mozzarella, and aromatic basil leaves.',
+    name: "Margherita Pizza",
+    category: "Pizza",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Classic stone-baked pizza with San Marzano tomatoes, fresh mozzarella, and aromatic basil leaves.",
     price: 249,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 2,
-    name: 'Creamy Alfredo Pasta',
-    category: 'Pasta',
-    description: 'Fettuccine tossed in a rich garlic parmesan cream sauce, garnished with fresh Italian herbs.',
+    name: "Creamy Alfredo Pasta",
+    category: "Pasta",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Fettuccine tossed in a rich garlic parmesan cream sauce, garnished with fresh Italian herbs.",
     price: 219,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 3,
-    name: 'Classic Veg Burger',
-    category: 'Burgers',
-    description: 'Crispy herb potato patty topped with melted cheddar, crisp lettuce, tomatoes, and secret sauce.',
+    name: "Classic Veg Burger",
+    category: "Burgers",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Crispy herb potato patty topped with melted cheddar, crisp lettuce, tomatoes, and secret sauce.",
     price: 179,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 4,
-    name: 'Peri-Peri French Fries',
-    category: 'Sides',
-    description: 'Crispy golden fries tossed in spicy peri-peri seasoning, served with garlic mayo dip.',
+    name: "Peri-Peri French Fries",
+    category: "Sides",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Crispy golden fries tossed in spicy peri-peri seasoning, served with garlic mayo dip.",
     price: 119,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 5,
-    name: 'Penne Arrabbiata',
-    category: 'Pasta',
-    description: 'Al dente penne pasta in a spicy tomato sauce infused with garlic, red chili peppers, and olive oil.',
+    name: "Penne Arrabbiata",
+    category: "Pasta",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Al dente penne pasta in a spicy tomato sauce infused with garlic, red chili peppers, and olive oil.",
     price: 199,
     rating: 4.6,
-    image: 'https://www.andy-cooks.com/cdn/shop/articles/20250710035519-andy-20cooks-20-20quick-20arrabbiata-20pasta-20recipe_daf853ef-dee8-4da0-8701-b8dda36397bf.jpg?v=1773806187',
+    image:
+      "https://www.andy-cooks.com/cdn/shop/articles/20250710035519-andy-20cooks-20-20quick-20arrabbiata-20pasta-20recipe_daf853ef-dee8-4da0-8701-b8dda36397bf.jpg?v=1773806187",
   },
   {
     id: 6,
-    name: 'Farmhouse Supreme Pizza',
-    category: 'Pizza',
-    description: 'Loaded with bell peppers, mushrooms, sweet corn, black olives, and melted mozzarella cheese.',
+    name: "Farmhouse Supreme Pizza",
+    category: "Pizza",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Loaded with bell peppers, mushrooms, sweet corn, black olives, and melted mozzarella cheese.",
     price: 299,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 7,
-    name: 'Garlic Butter Breadsticks',
-    category: 'Sides',
-    description: 'Warm, oven-baked dough sticks brushed with herb garlic butter and served with cheesy dip.',
+    name: "Garlic Butter Breadsticks",
+    category: "Sides",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Warm, oven-baked dough sticks brushed with herb garlic butter and served with cheesy dip.",
     price: 129,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 8,
-    name: 'Chocolate Lava Cake',
-    category: 'Desserts',
-    description: 'Decadent warm chocolate cake with a molten fudge center, dusted with powdered sugar.',
+    name: "Chocolate Lava Cake",
+    category: "Desserts",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Decadent warm chocolate cake with a molten fudge center, dusted with powdered sugar.",
     price: 149,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=800&q=85',
+    image:
+      "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=800&q=85",
   },
-]
+
+  // New Item 9
+  {
+    id: 9,
+    name: "Paneer Tikka Pizza",
+    category: "Pizza",
+    foodType: "Veg",
+    isVegetarian: true,
+    description:
+      "Delicious pizza topped with spicy paneer tikka, capsicum, onions, and melted mozzarella.",
+    price: 329,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=800&q=85",
+  },
+
+  // New Item 10
+  {
+    id: 10,
+    name: "Grilled Chicken Burger",
+    category: "Burgers",
+    foodType: "Non-Veg",
+    isVegetarian: false,
+    description:
+      "Juicy grilled chicken fillet served with fresh lettuce, tomatoes, cheese, and creamy burger sauce.",
+    price: 259,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=85",
+  },
+
+  // New Item 11
+  {
+    id: 11,
+    name: "Chicken Alfredo Pasta",
+    category: "Pasta",
+    foodType: "Non-Veg",
+    isVegetarian: false,
+    description:
+      "Creamy Alfredo pasta tossed with grilled chicken, garlic, parmesan-style cheese, and Italian herbs.",
+    price: 289,
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=85",
+  },
+
+  // New Item 12
+  {
+    id: 12,
+    name: "Chicken Wings",
+    category: "Sides",
+    foodType: "Non-Veg",
+    isVegetarian: false,
+    description:
+      "Crispy chicken wings coated in a spicy, tangy sauce and served with a creamy dipping sauce.",
+    price: 229,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=85",
+  },
+];
